@@ -7,10 +7,14 @@ from vars import Username, Password
 
 app = Flask(__name__)
 
-#Conexión a base de datos MongoDB Cloud
-client = MongoClient(f"mongodb+srv://{Username}:{Password}@cluster0.p59hg.mongodb.net/restApiDB?retryWrites=true&w=majority")
-db = client.restApiDB
-crudDB = db.crudDB
+conn = "mongodb://localhost:27017"
+client = MongoClient(conn, serverSelectionTimeoutMS=5000)   # set a 5-second connection timeout
+try:
+    db = client.RESTAPIDB
+    crudDB = db.datesDB
+    print("Connect with the server.", client.server_info)
+except Exception:
+    print("Unable to connect to the server.")
 
 @app.route('/users', methods=['POST'])
 def createUser():
