@@ -1,2 +1,0 @@
-Username = "username"
-Password = "password"
